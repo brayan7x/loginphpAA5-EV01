@@ -2,10 +2,11 @@
 include("conexion.php");
 //login
 
-if (!empty($_POST)) {
+if (isset($_POST['login'])) {
 	$usuario = mysqli_real_escape_string($conexion,$_POST['user']);
 	$password = mysqli_real_escape_string($conexion,$_POST['pass']);
 	$password_encriptada = sha1($password);
+
 	$sql = "SELECT idusuarios FROM usuarios
 				WHERE usuario = '$usuario' AND password = '$password_encriptada' ";
 	$resultado = $conexion->query($sql);
@@ -124,7 +125,7 @@ if (isset($_POST["registrar"])) {
 
 											<div class="space-6"></div>
 
-											<form action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST" >
+											<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" >
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -148,7 +149,7 @@ if (isset($_POST["registrar"])) {
 															<span class="lbl"> Recordarme</span>
 														</label>
 
-											<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+											<button type="submit" name="login" class="width-35 pull-right btn btn-sm btn-primary">
 												<i class="ace-icon fa fa-key"></i>
 												<span class="bigger-110">Ingresar</span>
 											</button>
